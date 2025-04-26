@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRAPHIX BY DASE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: black url('./Bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      animation: fadeIn 2s ease-in;
+    }
+
+    header img {
+      max-height: 80px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 4.8em;
+      color: white;
+      font-family: 'Bahnschrift', sans-serif;
+      text-transform: uppercase;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: red;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: white;
+      transition: 0.3s;
+    }
+
+    .content {
+      text-align: center;
+      padding: 80px 20px 60px;
+      animation: fadeIn 3s ease-in;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slogan {
+      font-size: 2.5em;
+      font-family: 'Pacifico', cursive;
+      max-width: 800px;
+      margin: 0 auto;
+      color: transparent;
+      background: linear-gradient(90deg, white, rgba(255,255,255,0.5), white);
+      background-size: 400% auto;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 8s linear infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        background-position: 400% center;
+      }
+      100% {
+        background-position: 0% center;
+      }
+    }
+
+    .portfolio {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+      position: relative;
+    }
+
+    .portfolio h2 {
+      font-size: 3.2em;
+      color: red;
+      margin-bottom: 40px;
+    }
+
+    .portfolio-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .portfolio-grid img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .portfolio-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .contact {
+      background-color: transparent;
+      padding: 40px 20px;
+      text-align: center;
+      animation: fadeIn 4s ease-in;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact p, .contact a {
+      color: white;
+      font-size: 1.1em;
+    }
+
+    .contact a.button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 25px;
+      background: red;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .contact a.button:hover {
+      background: #c40000;
+      transform: scale(1.05);
+    }
+
+    .social-icons {
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.8em;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: red;
+      transform: scale(1.2);
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #aaa;
+      animation: fadeIn 5s ease-in;
+      position: relative;
+      z-index: 1;
+    }
+
+    #scrollToTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 10;
+      background: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    #scrollToTopBtn:hover {
+      background: #c40000;
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webCanvas"></canvas>
+
+  <header>
+    <img src="./GBD-LOGO.jpg" alt="GRAPHIX BY DASE Logo">
+    <h1>GRAPHIX BY DASE</h1>
+    <nav>
+      <a href="#about">Home</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.facebook.com/profile.php?id=61574763877013&sk=about" target="_blank">Facebook</a>
+    </nav>
+  </header>
+
+  <div class="content" id="about">
+    <p class="slogan">“ Simplicity is the ultimate sophistication ”</p>
+  </div>
+
+  <div class="portfolio" id="portfolio">
+    <h2>Our Portfolio</h2>
+    <div class="portfolio-grid">
+      <img src="./Awrudu-Post.jpg" alt="Awrudu Post">
+      <img src="./Poson Edit.jpg" alt="Poson Edit">
+    </div>
+  </div>
+
+  <div class="contact" id="contact">
+    <h2 style="color: red;">Contact Us</h2>
+    <p><strong>Address:</strong> No.74/3, Wallukadeniya Rd, Siyambalape South</p>
+    <p><strong>Phone / WhatsApp:</strong> <a href="tel:+94782014384">+94 78 201 4384</a></p>
+    <p><strong>Email:</strong> <a href="mailto:ydaseofficial@gmail.com">ydaseofficial@gmail.com</a></p>
+    <a href="https://wa.me/94782014384" class="button" target="_blank">Message Us on WhatsApp</a>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/profile.php?id=61574763877013&sk=about" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://wa.me/94782014384" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 GRAPHIX BY DASE. All rights reserved.</p>
+  </footer>
+
+  <button id="scrollToTopBtn"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    window.addEventListener('scroll', () => {
+      scrollToTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const canvas = document.getElementById('webCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particlesArray = [];
+    const mouse = { x: null, y: null, radius: 100 };
+    let magnet = true;
+
+    window.addEventListener('mousemove', (event) => {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    });
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+
+    window.addEventListener('mousedown', () => {
+      magnet = !magnet;
+    });
+
+    class Particle {
+      constructor(x, y, directionX, directionY, size) {
+        this.x = x;
+        this.y = y;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.size = size;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+      }
+
+      update() {
+        this.x += this.directionX;
+        this.y += this.directionY;
+
+        if (this.x > canvas.width || this.x < 0) {
+          this.directionX = -this.directionX;
+        }
+        if (this.y > canvas.height || this.y < 0) {
+          this.directionY = -this.directionY;
+        }
+
+        if (magnet) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < mouse.radius) {
+            this.x += dx / 15;
+            this.y += dy / 15;
+          }
+        }
+
+        this.draw();
+      }
+    }
+
+    function init() {
+      particlesArray.length = 0;
+      let numberOfParticles = 50;
+      for (let i = 0; i < numberOfParticles; i++) {
+        let size = 2;
+        let x = Math.random() * (innerWidth - size * 2) + size;
+        let y = Math.random() * (innerHeight - size * 2) + size;
+        let directionX = (Math.random() - 0.5) * 0.5;
+        let directionY = (Math.random() - 0.5) * 0.5;
+        particlesArray.push(new Particle(x, y, directionX, directionY, size));
+      }
+    }
+
+    function connect() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a + 1; b < particlesArray.length; b++) {
+          let dx = particlesArray[a].x - particlesArray[b].x;
+          let dy = particlesArray[a].y - particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.strokeStyle = 'rgba(255,255,255,' + (1 - distance / 100) + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+      }
+      connect();
+    }
+
+    init();
+    animate();
+  </script>
+</body>
+</html>
